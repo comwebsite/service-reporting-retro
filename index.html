@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Система зарплат</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap" rel="stylesheet">
+  <style>
+    /* Сброс базовых стилей */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      line-height: 1.6;
+      padding: 20px;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    /* Обёртка для адаптивной таблицы */
+    .table-responsive {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 40px;
+    }
+    
+    /* Стили таблицы */
+    .salary-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .salary-table th, 
+    .salary-table td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .salary-table thead th {
+      background: #007BFF;
+      color: #fff;
+      font-weight: 500;
+    }
+    
+    .salary-table tbody tr:hover {
+      background: #f1f1f1;
+    }
+    
+    /* Стили диаграммы */
+    .chart-container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      margin-bottom: 40px;
+    }
+    
+    .chart-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+    
+    .chart {
+      display: flex;
+      justify-content: space-around;
+      align-items: flex-end;
+      height: 300px;
+      margin-top: 20px;
+      position: relative;
+    }
+    
+    .bar {
+      width: 60px;
+      background: linear-gradient(180deg, #00c6ff 0%, #0072ff 100%);
+      border-radius: 4px 4px 0 0;
+      position: relative;
+      transition: height 1.5s ease;
+      height: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+    }
+    
+    .bar span {
+      position: absolute;
+      bottom: -25px;
+      font-size: 14px;
+      color: #333;
+      text-align: center;
+      width: 100%;
+    }
+    
+    /* Стили футера */
+    footer {
+      text-align: center;
+      padding: 10px 0;
+      font-size: 14px;
+      color: #777;
+    }
+    
+    /* Медиа-запросы для адаптации */
+    @media(max-width: 768px) {
+      body {
+        padding: 10px;
+      }
+      .container {
+        width: 95%;
+      }
+      .salary-table th, .salary-table td {
+        padding: 8px 10px;
+        font-size: 14px;
+      }
+      .chart-container h2 {
+        font-size: 20px;
+      }
+    }
+    
+    @media(max-width: 480px) {
+      .chart {
+        height: 200px;
+      }
+      .bar {
+        width: 40px;
+      }
+      .bar span {
+        font-size: 12px;
+        bottom: -20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 style="text-align:center; margin-bottom: 20px;">Система зарплат</h1>
+    
+    <div class="table-responsive">
+      <table class="salary-table">
+        <thead>
+          <tr>
+            <th>Имя и отчество умельца</th>
+            <th>Должность</th>
+            <th>Плата за час</th>
+            <th>Рабочие часы</th>
+            <th>Кол-во раб. дней</th>
+            <th>ЗП за 1 день</th>
+            <th>Раб. часов в месяц</th>
+            <th>Репорты</th>
+            <th>Задания</th>
+            <th>ЗП</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Паша</td>
+            <td>Администратор С.Р.У.</td>
+            <td>29,13</td>
+            <td>4</td>
+            <td>30</td>
+            <td>233</td>
+            <td>120</td>
+            <td>+</td>
+            <td>-</td>
+            <td>6990</td>
+          </tr>
+          <tr>
+            <td>Иван Викторович</td>
+            <td>Умелец Дружинник С.Р.У.</td>
+            <td>8,75</td>
+            <td>4</td>
+            <td>30</td>
+            <td>70</td>
+            <td>120</td>
+            <td>+</td>
+            <td>+</td>
+            <td>3600</td>
+          </tr>
+          <tr>
+            <td>Полина Андреевна</td>
+            <td>Умелец Дружинник С.Р.У.</td>
+            <td>8,75</td>
+            <td>2</td>
+            <td>30</td>
+            <td>70</td>
+            <td>60</td>
+            <td>-</td>
+            <td>+</td>
+            <td>2500</td>
+          </tr>
+          <tr>
+            <td>Галина Ивановна</td>
+            <td>Умелец Архиватор перемен</td>
+            <td>8,75</td>
+            <td>1</td>
+            <td>30</td>
+            <td>70</td>
+            <td>30</td>
+            <td>-</td>
+            <td>-</td>
+            <td>2200</td>
+          </tr>
+          <tr>
+            <td>Глеб Николаевич</td>
+            <td>Умелец Дружинник С.Р.У.</td>
+            <td>8,75</td>
+            <td>2</td>
+            <td>30</td>
+            <td>70</td>
+            <td>70</td>
+            <td>+</td>
+            <td>+</td>
+            <td>2900</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    
+    <div class="chart-container">
+      <h2>График зарплат</h2>
+      <div class="chart">
+        <div class="bar" data-percentage="94"><span>Паша</span></div>
+        <div class="bar" data-percentage="79"><span>Ваня</span></div>
+        <div class="bar" data-percentage="48"><span>Полина</span></div>
+        <div class="bar" data-percentage="31"><span>Галина</span></div>
+        <div class="bar" data-percentage="59"><span>Глеб</span></div>
+      </div>
+    </div>
+  </div>
+  
+  <footer>
+    © Vertex Dynamics 2025, Inc. SRU 2024-2025. Все права защищены.
+  </footer>
+  
+  <script>
+    // Анимация столбцов диаграммы по загрузке страницы.
+    document.addEventListener("DOMContentLoaded", function() {
+      const bars = document.querySelectorAll('.bar');
+      bars.forEach(function(bar) {
+        const percentage = bar.getAttribute('data-percentage');
+        setTimeout(() => {
+          bar.style.height = percentage + '%';
+        }, 100); // Небольшая задержка для эффекта анимации
+      });
+    });
+  </script>
+</body>
+</html>
